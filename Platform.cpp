@@ -4,6 +4,7 @@
 #include "Human.h"
 #include "GobangAI.h"
 #include "Reversi.h"
+#include "Go.h"
 using namespace std;
 
 Platform::~Platform() {
@@ -18,7 +19,7 @@ void Platform::chooseGame() {
 	cin >> inp;
 	switch (inp) {
 		case 1: game = new Reversi(); break;
-		//case 2: game = make_shared(new Go()); break;
+		case 2: game = new Go(); break;
 		case 3: game = new Gobang(); break;
 		default: cout << "Input Error!\n"; chooseGame();
 	}
@@ -134,7 +135,7 @@ void Platform::start() {
 						cout << "Stay\n";
 					} else {
 						game->set(p);
-						cout << "Place (" << p.x << ", " << p.y << ")\n";
+						cout << "Place (" << p.x + 1 << ", " << p.y + 1 << ")\n";
 					}
 				}
 			else {
@@ -148,13 +149,9 @@ void Platform::start() {
 				game->show();
 				if (inp == 2) {
 					cout << "Tie!\n";
+					break;
 				} else {
-					game->set(p);
-					cout << "Place (" << (p.x+1) << ", " << (p.y+1) << ")\n";
-				}
-				inp = game->checkWin();
-				if (inp != -1) {
-					cout << "Player" << inp << "(" << color[inp - 1] << ") wins!\n";
+					cout << "Player" << inp + 1 << "(" << color[inp] << ") wins!\n";
 					break;
 				} 
 			}

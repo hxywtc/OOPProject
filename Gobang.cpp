@@ -101,7 +101,7 @@ void Gobang::load(const std::string &_path) {
 	}
 	m_status = *(m_history.end() - 1);
 }
-	
+
 void Gobang::save(const std::string &_path) {
 	ofstream w;
 	w.open(_path.c_str());
