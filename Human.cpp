@@ -11,7 +11,8 @@ Point Human::place() {
 	Point point;
 	cout << "Please input the position:\n";
 	cin >> point.x >> point.y;
-	if (0 < point.x && point.x <= m_status.m_size && 0 < point.y && point.y <= m_status.m_size && !m_status.m_board[--point.x][--point.y]) {
+	if ((point.x == 0 && point.y == 0) || (0 < point.x && point.x <= m_status.m_size && 0 < point.y && point.y <= m_status.m_size && 
+		int(m_status.m_board[--point.x][--point.y]) == 0)) {
 		return point;
 	}
 	else {

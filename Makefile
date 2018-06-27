@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -std=c++11
 DEPS = Game.h Player.h Common.h AI.h GobangAI.h
-OBJ = main.o Platform.o Human.o Gobang.o GobangAI.o AI.o
+OBJ = main.o Platform.o Human.o Gobang.o GobangAI.o AI.o Reversi.o
 
 main: $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^

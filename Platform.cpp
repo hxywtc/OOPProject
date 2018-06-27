@@ -3,6 +3,7 @@
 #include "Gobang.h"
 #include "Human.h"
 #include "GobangAI.h"
+#include "Reversi.h"
 using namespace std;
 
 Platform::~Platform() {
@@ -16,7 +17,7 @@ void Platform::chooseGame() {
 	int inp;
 	cin >> inp;
 	switch (inp) {
-		//case 1: game = make_shared(new Reversi()); break;
+		case 1: game = new Reversi(); break;
 		//case 2: game = make_shared(new Go()); break;
 		case 3: game = new Gobang(); break;
 		default: cout << "Input Error!\n"; chooseGame();
@@ -82,52 +83,71 @@ void Platform::start() {
 		init();
 		for ( ; ; id = 1 - id) {
 			setPlayerStatus();
-			if (player[id]->isHuman()) {
-				cout << "**************Board Platform**************\n";
-				cout << color[id] << "'s turn (1-6):\n1. PLACE\n2. RETRACT\n3. RESTART\n4. SAVE\n5. LOAD\n6. EXIT\n";
-				game->show();
-				//int inp;
-				cin >> inp;	
-				if (inp == 6) break;
+			if (game->canPlace())
+				if (player[id]->isHuman()) {
+					cout << "**************Board Platform**************\n";
+					cout << color[id] << "'s turn (1-6):\n1. PLACE\n2. RETRACT\n3. RESTART\n4. SAVE\n5. LOAD\n6. EXIT\n";
+					game->show();
+					//int inp;
+					cin >> inp;	
+					if (inp == 6) break;
 
-				switch (inp) {
-					case 1: p = player[id]->place(); 
-							if (p.x == -1) {
-								game->stay();
-							} else {
-								game->set(p);
-							}
-							break;
-					case 2: if (game->draw()) {
+					switch (inp) {
+						case 1: p = player[id]->place();
+								if (p.x == -1) {
+									game->stay();
+								} else {
+									if (game->canPlace(p.x, p.y)) {
+										game->set(p);
+									} else {
+										cout << "Can not Place here!\n";
+										id = 1 - id;
+									}
+								}
+								break;
+						case 2: if (game->draw()) {
+									id = 1 - id;
+								} else {
+									cout << "Can not Retract!\n";
+									id = 1 - id;
+								}
+								break;
+						case 3: game->restart();
+								id = 1;
+								break;
+						case 4: save();
 								id = 1 - id;
-							} else {
-								cout << "Can not Retract!\n";
+								break;
+						case 5: load();
 								id = 1 - id;
-							}
-							break;
-					case 3: game->restart();
-							id = 1;
-							break;
-					case 4: save();
-							id = 1 - id;
-							break;
-					case 5: load();
-							id = 1 - id;
-							break;
-					default: cout << "Input Error!\n";
-							 id = 1 - id;
+								break;
+						default: cout << "Input Error!\n";
+								 id = 1 - id;
+					}
+					
+				} else {
+					game->show();
+					cout << color[id] << "'s turn:\n";
+					Point p = player[id]->place();
+					if (p.x == -1) {
+						game->stay();
+						cout << "Stay\n";
+					} else {
+						game->set(p);
+						cout << "Place (" << p.x << ", " << p.y << ")\n";
+					}
 				}
-				inp = game->checkWin();
-				if (inp != -1) {
-					cout << "Player" << inp << "(" << color[inp - 1] << ") wins!\n";
-					break;
-				} 
-			} else {
+			else {
+				game->stay();
 				game->show();
 				cout << color[id] << "'s turn:\n";
-				Point p = player[id]->place();
-				if (p.x == -1) {
-					cout << "Stay\n";
+				cout << "Stay\n";
+			}
+			inp = game->checkWin();
+			if (inp != -1) {
+				game->show();
+				if (inp == 2) {
+					cout << "Tie!\n";
 				} else {
 					game->set(p);
 					cout << "Place (" << (p.x+1) << ", " << (p.y+1) << ")\n";

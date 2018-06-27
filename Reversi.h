@@ -2,9 +2,9 @@
 #include "Common.h"
 #include "Game.h"
 
-class Gobang : public Game {
+class Reversi : public Game {
 public:
-	Gobang();
+	Reversi();
 	void start();
 	void set(Point point);
 	bool draw();
@@ -17,4 +17,5 @@ public:
 	Status& getStatus();
 	bool canPlace();
 	bool canPlace(int x, int y);
+	int calcWin();
 };
