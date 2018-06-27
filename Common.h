@@ -3,6 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 #define MAX_SIZE 9
 
@@ -10,6 +11,8 @@ enum GameType {REVERSI, GO, GOBANG};
 enum PlayerType {COMPUTER, HUMAN};
 
 struct Point {
+	Point(){}
+	Point(int _x, int _y) : x(_x), y(_y) {}
 	int x, y;
 };
 
@@ -26,5 +29,5 @@ struct Status {
 	}
 };
 
-static int directx[8] = {1, 1,  0,  -1, -1, -1, 0, 1};
-static int directy[8] = {0, -1, -1, -1, 0,  1,  1, 1};
+static int directx[8] = {1, 0, -1, 0,  1, -1, -1, 1};
+static int directy[8] = {0, -1, 0, 1, -1, -1,  1, 1};
