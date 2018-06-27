@@ -4,7 +4,7 @@ using namespace std;
 
 Gobang::Gobang() {
 	m_type = GOBANG;
-	start();
+	//start();
 }
 
 void Gobang::start() {
@@ -128,4 +128,12 @@ void Gobang::show() {
 
 Status& Gobang::getStatus() {
 	return m_status;
+}
+
+bool Gobang::canPlace() {
+	return true;
+}
+
+bool Gobang::canPlace(int x, int y) {
+	return int(m_status.m_board[x][y]) == 0;
 }

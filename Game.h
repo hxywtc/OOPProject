@@ -18,4 +18,6 @@ public:
 	virtual void save(const std::string &_path) = 0;
 	virtual void show() = 0;
 	virtual Status& getStatus() = 0;
+	virtual bool canPlace() = 0;
+	virtual bool canPlace(int x, int y) = 0;
 };

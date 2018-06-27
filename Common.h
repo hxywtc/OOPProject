@@ -25,3 +25,6 @@ struct Status {
 				m_board[i][j] = _status.m_board[i][j];
 	}
 };
+
+static int directx[8] = {1, 1,  0,  -1, -1, -1, 0, 1};
+static int directy[8] = {0, -1, -1, -1, 0,  1,  1, 1};

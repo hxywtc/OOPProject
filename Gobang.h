@@ -15,4 +15,6 @@ public:
 	void save(const std::string &_path);
 	void show();
 	Status& getStatus();
+	bool canPlace();
+	bool canPlace(int x, int y);
 };
