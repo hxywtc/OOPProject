@@ -2,6 +2,7 @@
 #include "Platform.h"
 #include "Gobang.h"
 #include "Human.h"
+#include "GobangAI.h"
 using namespace std;
 
 Platform::~Platform() {
@@ -27,8 +28,12 @@ void Platform::choosePlayer(int id) {
 	int inp;
 	cin >> inp;
 	switch (inp) {
-		//case 1: player[id] = make_shared(new Computer()); break;
-		case 2: player[id] = new Human(); break;
+		case 1: player[id] = new GobangAI(); 
+				player[id]->idx = id + 1;
+				break;
+		case 2: player[id] = new Human();
+				player[id]->idx = id + 1;
+				break;
 		default: cout << "Input Error!\n"; choosePlayer(id);
 	}
 }
@@ -124,8 +129,14 @@ void Platform::start() {
 				if (p.x == -1) {
 					cout << "Stay\n";
 				} else {
-					cout << "Place (" << p.x << ", " << p.y << ")\n";
+					game->set(p);
+					cout << "Place (" << (p.x+1) << ", " << (p.y+1) << ")\n";
 				}
+				inp = game->checkWin();
+				if (inp != -1) {
+					cout << "Player" << inp << "(" << color[inp - 1] << ") wins!\n";
+					break;
+				} 
 			}
 		}
 	}
