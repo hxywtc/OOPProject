@@ -13,7 +13,7 @@ GobangAI::GobangAI() {
 Point GobangAI::place() {
 	int search_depth=3;
 	float best = MIN_SCORE;
-	Point best_point;
+	Point best_point(0, 0);
 	for (int i = 0; i < MAX_SIZE; i++) {
 		for (int j = 0; j < MAX_SIZE; j++) {
 			//Loop on all position
@@ -31,7 +31,7 @@ Point GobangAI::place() {
 			}
 		}
 	}
-	cout<<"final point "<<best_point.x<<" "<<best_point.y<<endl;
+	//cout<<"final point "<<best_point.x<<" "<<best_point.y<<endl;
 	return best_point;
 }
 
