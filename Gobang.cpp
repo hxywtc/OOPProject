@@ -88,6 +88,11 @@ int Gobang::checkWin() {
 				if (flag) return m_status.m_board[i][j] - 1;
 			}
 		}
+	flag = true;
+	for (int i = 0; i < m_status.m_size; ++i)
+		for (int j = 0; j < m_status.m_size; ++j)
+			if (int(m_status.m_board[i][j]) == 0) flag= false;
+	if (flag) return 2;
 	return -1;
 }
 
