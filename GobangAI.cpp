@@ -21,15 +21,17 @@ Point GobangAI::place() {
 				//Given a position, find its value
 				m_status.m_board[i][j] = idx;
 				float tmp_score = min_search(m_status, search_depth-1, idx, MAX_SCORE, MIN_SCORE);
-				if (tmp_score > best) {
+				if (tmp_score > best || (best_point.x == 0 && best_point.y == 0)) {
 					best = tmp_score;
 					best_point.x = i;
 					best_point.y = j;
 				}
 				m_status.m_board[i][j] = 0;
+				//cout<<i<<" "<<j<<" has score "<<tmp_score<<endl;
 			}
 		}
 	}
+	//cout<<"final point "<<best_point.x<<" "<<best_point.y<<endl;
 	return best_point;
 }
 

@@ -145,6 +145,7 @@ void Platform::start() {
 				cout << "Stay\n";
 			}
 			inp = game->checkWin();
+			//cout<<"now game "<<inp<<endl;
 			if (inp != -1) {
 				game->show();
 				if (inp == 2) {
