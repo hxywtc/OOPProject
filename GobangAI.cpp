@@ -31,7 +31,7 @@ Point GobangAI::place() {
 			}
 		}
 	}
-	//cout<<"final point "<<best_point.x<<" "<<best_point.y<<endl;
+	cout<<"final point "<<best_point.x<<" "<<best_point.y<<endl;
 	return best_point;
 }
 
